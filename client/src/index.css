@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Fredericka+the+Great&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Luckiest+Guy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Permanent+Marker&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Local fonts for fonts that work properly */
+@font-face {
+  font-family: 'Oswald';
+  src: url('./assets/fonts/Oswald-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  src: url('./assets/fonts/Oswald-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: 218 85% 4%; /* #060A0D */
+  --foreground: 0 0% 98%;
+  --muted: 218 85% 12%;
+  --muted-foreground: 0 0% 65%;
+  --popover: 218 85% 6%;
+  --popover-foreground: 0 0% 98%;
+  --card: 218 85% 6%;
+  --card-foreground: 0 0% 98%;
+  --border: 218 85% 20%;
+  --input: 218 85% 15%;
+  --primary: 194 100% 48%; /* #04A6F2 */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 84% 46%; /* #1F1FCA */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 194 100% 48%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 194 100% 48%;
+  --radius: 0.5rem;
+}
+.dark {
+  --background: 218 85% 4%; /* #060A0D */
+  --foreground: 0 0% 98%;
+  --muted: 218 85% 12%;
+  --muted-foreground: 0 0% 65%;
+  --popover: 218 85% 6%;
+  --popover-foreground: 0 0% 98%;
+  --card: 218 85% 6%;
+  --card-foreground: 0 0% 98%;
+  --border: 218 85% 20%;
+  --input: 218 85% 15%;
+  --primary: 194 100% 48%; /* #04A6F2 */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 84% 46%; /* #1F1FCA */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 194 100% 48%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 194 100% 48%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Font utility classes */
+@layer utilities {
+  .font-comic-neue { font-family: 'Comic Neue', sans-serif; }
+  .font-fredericka { font-family: 'Fredericka the Great', cursive; }
+  .font-libre-baskerville { font-family: 'Libre Baskerville', serif; }
+  .font-luckiest-guy { font-family: 'Luckiest Guy', cursive; }
+  .font-nunito { font-family: 'Nunito', sans-serif; }
+  .font-pacifico { font-family: 'Pacifico', cursive; }
+  .font-permanent-marker { font-family: 'Permanent Marker', cursive; }
+}
+
+/* Force font loading */
+.font-preloader {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+  font-size: 1px;
+}
+
+.font-preloader::before {
+  content: 'Comic Neue';
+  font-family: 'Comic Neue', sans-serif;
+}
+
+.font-preloader::after {
+  content: 'Fredericka Libre Luckiest Nunito Pacifico Permanent';
+  font-family: 'Fredericka the Great', 'Libre Baskerville', 'Luckiest Guy', 'Nunito', 'Pacifico', 'Permanent Marker';
+}

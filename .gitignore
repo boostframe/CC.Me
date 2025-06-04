@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+
+# Credentials and sensitive files
+attached_assets/bf-research-media-creator-cce89bf42cb2.json
+gcs-credentials.json
