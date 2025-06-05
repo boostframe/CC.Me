@@ -13,7 +13,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2024-12-18.acacia",
+  apiVersion: "2025-04-30.basil",
 });
 
 // Initialize Google Cloud Storage
@@ -242,13 +242,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         } else {
           console.log('Successfully sent to Make.com webhook');
           // Update job status to processing since webhook was sent
-          await storage.updateCaptionJobStatus(job.id);
+          await storage.updateCaptionJobStatus(job.id, 'processing');
         }
       } catch (error) {
         console.error('Error sending to Make.com webhook:', error);
         // If webhook fails, mark job as failed
         await storage.updateCaptionJobStatus(
           job.id,
+          'failed',
           undefined,
           undefined,
           `Webhook error: ${error instanceof Error ? error.message : 'Unknown error'}`

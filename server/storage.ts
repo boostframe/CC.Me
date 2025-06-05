@@ -38,7 +38,7 @@ export interface IStorage {
   ): Promise<CaptionJob | undefined>;
 
   // Billing operations
-  createBilling(billing: InsertBilling): Promise<Billing>;
+  createBilling(billingData: InsertBilling): Promise<Billing>;
   getBillingByUser(userId: string): Promise<Billing[]>;
 }
 
@@ -204,10 +204,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Billing operations
-  async createBilling(billing: InsertBilling): Promise<Billing> {
+  async createBilling(billingData: InsertBilling): Promise<Billing> {
     const [bill] = await db
       .insert(billing)
-      .values(billing)
+      .values(billingData)
       .returning();
     return bill;
   }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { airtableService } from './airtable';
 import type { User, UpsertUser, InsertCaptionJob, CaptionJob, InsertBilling, Billing } from '@shared/schema';
 

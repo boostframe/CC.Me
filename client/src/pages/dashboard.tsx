@@ -74,7 +74,7 @@ export default function Dashboard() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center space-x-2 text-white hover:bg-white/10">
                     <Avatar className="w-8 h-8">
-                      <AvatarImage src={user?.profileImageUrl} alt="User avatar" />
+                      <AvatarImage src={user?.profileImageUrl ?? undefined} alt="User avatar" />
                       <AvatarFallback className="bg-slate-700 text-white">{getUserInitials(user)}</AvatarFallback>
                     </Avatar>
                     <span className="hidden sm:block">{getUserDisplayName(user)}</span>
