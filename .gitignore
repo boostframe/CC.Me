@@ -7,4 +7,5 @@ vite.config.ts.*
 
 # Credentials and sensitive files
 attached_assets/bf-research-media-creator-cce89bf42cb2.json
+.env
 gcs-credentials.json
