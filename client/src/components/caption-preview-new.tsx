@@ -76,9 +76,13 @@ export function CaptionPreview({ captionOptions }: CaptionPreviewProps) {
     fontWeight: captionOptions.bold ? 'bold' : 'normal',
     fontStyle: captionOptions.italic ? 'italic' : 'normal',
     textDecoration: captionOptions.strikeout ? 'line-through' : 'none',
-    background: captionOptions.style === 'highlight' ? 'rgba(0,0,0,0.8)' : 
-               captionOptions.style === 'overlay' ? 'rgba(255,255,255,0.2)' : 'transparent',
-    backdropFilter: captionOptions.style !== 'none' ? 'blur(4px)' : 'none',
+    background:
+      captionOptions.style === 'highlight'
+        ? 'rgba(0,0,0,0.8)'
+        : (captionOptions.style as string) === 'overlay'
+        ? 'rgba(255,255,255,0.2)'
+        : 'transparent',
+    backdropFilter: (captionOptions.style as string) !== 'none' ? 'blur(4px)' : 'none',
     border: `2px solid ${captionOptions.outlineColor}`,
     WebkitTextStroke: `1px ${captionOptions.outlineColor}`,
     textShadow: `2px 2px 4px ${captionOptions.outlineColor}`,

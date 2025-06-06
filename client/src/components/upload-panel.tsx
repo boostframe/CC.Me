@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import type { Usage } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,7 +25,7 @@ export function UploadPanel() {
   const { captionOptions, updateCaptionOption } = useCaptionOptions();
 
   // Get usage data to check limits
-  const { data: usage } = useQuery({
+  const { data: usage } = useQuery<Usage>({
     queryKey: ["/api/usage"],
   });
 
@@ -82,30 +83,32 @@ export function UploadPanel() {
     },
   });
 
-  const validateVideoFile = (file: File): Promise<{ valid: boolean; duration: number; aspectRatio: number }> => {
+  const validateVideoFile = (
+    file: File,
+  ): Promise<{ valid: boolean; duration: number; aspectRatio: number }> => {
     return new Promise((resolve) => {
       const video = document.createElement('video');
       video.preload = 'metadata';
-      
-      video.onloadedmetadata = function() {
-        const aspectRatio = this.videoWidth / this.videoHeight;
-        const duration = this.duration / 60; // Convert to minutes
+
+      video.onloadedmetadata = () => {
+        const aspectRatio = video.videoWidth / video.videoHeight;
+        const duration = video.duration / 60; // Convert to minutes
         const isPortrait = aspectRatio <= 0.75; // Allow some tolerance for portrait
-        
+
         resolve({
           valid: isPortrait,
           duration,
-          aspectRatio
+          aspectRatio,
         });
-        
+
         URL.revokeObjectURL(video.src);
       };
-      
-      video.onerror = function() {
+
+      video.onerror = function () {
         resolve({ valid: false, duration: 0, aspectRatio: 0 });
         URL.revokeObjectURL(video.src);
       };
-      
+
       video.src = URL.createObjectURL(file);
     });
   };
@@ -270,7 +273,7 @@ export function UploadPanel() {
           {/* Style */}
           <div>
             <Label htmlFor="style" className="text-white">Caption Style</Label>
-            <Select value={captionOptions.style} onValueChange={(value) => updateCaptionOption('style', value)}>
+            <Select value={captionOptions.style} onValueChange={(value) => updateCaptionOption('style', value as CaptionOptions['style'])}>
               <SelectTrigger className="bg-white/10 border-white/20 text-white">
                 <SelectValue />
               </SelectTrigger>

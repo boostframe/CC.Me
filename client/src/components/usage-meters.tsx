@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import type { Usage } from "@/lib/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Gift, ShieldAlert, Activity } from "lucide-react";
@@ -8,7 +9,7 @@ interface UsageMetersProps {
 }
 
 export function UsageMeters({ onUpgradeClick }: UsageMetersProps) {
-  const { data: usage, isLoading } = useQuery({
+  const { data: usage, isLoading } = useQuery<Usage>({
     queryKey: ["/api/usage"],
     refetchInterval: 30000, // Refresh every 30 seconds
   });

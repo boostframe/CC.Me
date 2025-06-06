@@ -8,7 +8,7 @@ import memoize from "memoizee";
 import MemoryStore from "memorystore";
 import { storage } from "./airtable-only-storage";
 
-if (!process.env.REPLIT_DOMAINS) {
+if (process.env.DISABLE_REPLIT_AUTH !== 'true' && !process.env.REPLIT_DOMAINS) {
   throw new Error("Environment variable REPLIT_DOMAINS not provided");
 }
 
@@ -35,7 +35,7 @@ export function getSession() {
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: true,
+      secure: process.env.DISABLE_REPLIT_AUTH === 'true' ? false : true,
       maxAge: sessionTtl,
     },
   });
@@ -64,6 +64,11 @@ async function upsertUser(
 }
 
 export async function setupAuth(app: Express) {
+  if (process.env.DISABLE_REPLIT_AUTH === 'true') {
+    app.set('trust proxy', 1);
+    app.use(getSession());
+    return;
+  }
   try {
     //oauth_config = JSON.parse(process.env.GOOGLE_OAUTH_SECRETS || '{}');
     //console.log('OAuth config loaded successfully');
@@ -132,6 +137,9 @@ export async function setupAuth(app: Express) {
 }
 
 export const isAuthenticated: RequestHandler = async (req, res, next) => {
+  if (process.env.DISABLE_REPLIT_AUTH === 'true') {
+    return next();
+  }
   const user = req.user as any;
   console.log('Auth check - User:', req.user ? 'present' : 'missing');
   console.log('Auth check - Session:', req.session ? 'present' : 'missing');
